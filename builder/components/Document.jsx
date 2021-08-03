@@ -12,7 +12,10 @@ export const Head = ({ children, css }) =>
 </head>
 
 const Scripts = ({ js }) =>
+<>
+<script src="/client-router.js"></script>
 <script src={js}></script>
+</>
 
 export const Document = ({ children, css, js }) => 
 <Html>

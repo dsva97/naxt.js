@@ -1,11 +1,10 @@
-import { Layout } from '../../components/Layout'
 import './script'
 import './style.css'
 
 export const IndexView = () => {
     return (
-        <Layout>
-            <h1> Index! </h1>
-        </Layout>
+        <div id="home">
+            <h1> Index! RA</h1>
+        </div>
     )
 }

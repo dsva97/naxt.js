@@ -1,11 +1,10 @@
-import { Layout } from '../../components/Layout'
 import './script'
 import './style.css'
 
 export const ContactView = (props) => {
     return (
-        <Layout>
+        <div id="contact">
             <h1> Contact! </h1>
-        </Layout>
+        </div>
     )
 }
