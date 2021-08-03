@@ -1,0 +1,19 @@
+{
+  "plugins": [
+    [
+      "babel-plugin-transform-import-ignore",
+      {
+        "patterns": [".css", "./script"]
+      }
+    ]
+  ],
+  "presets": [
+    "@babel/preset-env",
+    [
+      "@babel/preset-react",
+      {
+        "runtime": "automatic"
+      }
+    ]
+  ]
+}
