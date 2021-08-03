@@ -25,9 +25,9 @@ recursiveApply(PAGES_PATH, { applyToFile: (abs_file) => {
         // Page
         const pageContent = ReactDOM.renderToString(<Document js=""><App /></Document>)
         if(relativePath === '/index') {
-            forceWriteFile(distPageDir+'/index.html', pageContent)
-        } else {
             forceWriteFile(DIST_PATH+'/index.html', pageContent)
+        } else {
+            forceWriteFile(distPageDir+'/index.html', pageContent)
         }
     })
 
