@@ -1,10 +1,20 @@
 import './script'
 import './style.css'
 
-export const ContactView = (props) => {
+const ContactView = (props) => {
     return (
         <div id="contact">
-            <h1> Contact! </h1>
+            <h1> Contact 2! </h1>
         </div>
     )
 }
+
+export const getStaticProps = () => {
+    return {
+        data: {
+            title: "Contact"
+        }
+    }
+}
+
+export default ContactView

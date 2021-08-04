@@ -1,10 +1,12 @@
 import './script'
 import './style.css'
 
-export const IndexView = () => {
+const IndexView = () => {
     return (
         <div id="home">
-            <h1> Index! RA</h1>
+            <h1>Hola mundo!</h1>
         </div>
     )
 }
+
+export default IndexView

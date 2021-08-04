@@ -1,0 +1,1 @@
+import '/home/darwin/Code/frontend/onlyjsx/demo/src/pages/index.jsx'
