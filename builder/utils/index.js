@@ -52,7 +52,7 @@ export const getUpdatedTmp = (abs_path) => {
 };
 
 export const deleteAllFiles = (abs_directory) => {
-  fs.rmdirSync(abs_directory, { recursive: true });
+  fs.rmSync(abs_directory, { recursive: true });
 };
 
 export const cleanDirectories = () => {
@@ -70,7 +70,7 @@ export const cleanDirectories = () => {
         file = path.resolve(DIST_PATH, file)
         if(!dontDelete.some(f=>file===f)) {
           if(fs.statSync(file).isDirectory()) {
-            fs.rmdirSync(file, { recursive: true, force: true })
+            fs.rmSync(file, { recursive: true, force: true })
           } else {
             fs.unlinkSync(file)
           }
