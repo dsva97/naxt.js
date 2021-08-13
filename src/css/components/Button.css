@@ -1,0 +1,53 @@
+.btn {
+    mix-blend-mode: exclusion;
+    cursor: pointer;
+}
+
+/*#region type by Radius*/
+.btn-normal {
+    border-radius: .5em;
+}
+.btn-rounded {
+    border-radius: 1em;
+}
+.btn-square {
+    border-radius: 0;
+}
+/*#endregion type by Radius*/
+
+/*#region type by Color Distribution*/
+.btn-outline {
+    border: 1px solid var(--color);
+    color: var(--color);
+    transition: background .3s;
+}
+.btn-outline:hover {
+    background: rgba(var(--color-r), var(--color-g), var(--color-b), .2);
+}
+.btn-outline:active {
+    background: rgba(var(--color-r), var(--color-g), var(--color-b), 0);
+}
+.btn-filled {
+    border: 1px solid var(--bg-color);
+    background: var(--bg-color);
+    transition: opacity .3s;
+}
+.btn-filled:hover {
+    opacity: .8;
+}
+.btn-filled:active {
+    opacity: 1;
+}
+/*#endregion type by Color Distribution*/
+
+/*#region type by Size*/
+.btn-sm {
+    padding: .12em 1em;
+}
+.btn-md {
+    padding: .35em 1.5em;
+}
+.btn-lg {
+    padding: .6em 2.75em;
+}
+/*#endregion type by Size*/

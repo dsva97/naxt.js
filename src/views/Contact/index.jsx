@@ -9,7 +9,7 @@ const ContactView = (props) => {
     )
 }
 
-export const getStaticProps = () => {
+export const getStaticProps = async () => {
     return {
         data: {
             title: "Contact"

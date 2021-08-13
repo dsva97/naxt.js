@@ -1,8 +1,73 @@
 :root {
+    /*#region COLORS */
     
+    /*#region COLOR DARK */
+    --color-theme-dark-r: 10;
+    --color-theme-dark-g: 20;
+    --color-theme-dark-b: 23;
+    --color-theme-dark-hex: #0A1417;
+    --color-theme-dark: var(var(--color-theme-dark-r), var(--color-theme-dark-g), var(--color-theme-dark-b));
+    /*#endregion COLOR DARK */
+    
+    /*#region COLOR LOW */
+    --color-theme-dark-r: 3;
+    --color-theme-dark-g: 46;
+    --color-theme-dark-b: 66;
+    --color-theme-dark-hex: #032E42;
+    --color-theme-dark: var(var(--color-theme-dark-r), var(--color-theme-dark-g), var(--color-theme-dark-b));
+    /*#endregion COLOR LOW */
+    
+    /*#region COLOR BASE */
+    --color-theme-dark-r: 43;
+    --color-theme-dark-g: 102;
+    --color-theme-dark-b: 132;
+    --color-theme-dark-hex: #2B6684;
+    --color-theme-dark: var(var(--color-theme-dark-r), var(--color-theme-dark-g), var(--color-theme-dark-b));
+    /*#endregion COLOR BASE */
+
+    /*#region COLOR GRAY */
+    --color-theme-dark-r: 156;
+    --color-theme-dark-g: 172;
+    --color-theme-dark-b: 191;
+    --color-theme-dark-hex: #9CACBF;
+    --color-theme-dark: var(var(--color-theme-dark-r), var(--color-theme-dark-g), var(--color-theme-dark-b));
+    /*#endregion COLOR GRAY */
+    
+    /*#region COLOR PRIMARY */
+    --color-theme-dark-r: 1;
+    --color-theme-dark-g: 46;
+    --color-theme-dark-b: 103;
+    --color-theme-dark-hex: #012E67;
+    --color-theme-dark: var(var(--color-theme-dark-r), var(--color-theme-dark-g), var(--color-theme-dark-b));
+    /*#endregion COLOR PRIMARY */
+    
+    /*#endregion COLORS */
+
+    /*#region TEXT */
+    --font-headline-primary: ;
+    --font-headline-decorative: ;
+    --font-headline-regular: ;
+    
+    --font-paragraph-primary: ;
+    --font-paragraph-secondary: ;
+    
+    --font-paragraph-title: ;
+    --font-paragraph-subtitle: ;
+    
+    --font-link: ;
+    /*#endregion TEXT */
+
+
+    /*#region PADDINGS */
+    --padding-sm: .5em;
+    --padding-md: .1em;
+    --padding-lg: .2em;
+    --padding-full: .3em;
+    /*#endregion PADDINGS */
 }
-* {
+*:not(:where(ul)) {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }

@@ -1,0 +1,108 @@
+.green, .success {
+    --color-r: 25;
+    --color-g: 135;
+    --color-b: 84;
+    color: rgb(var(--color-r), var(--color-g), var(--color-b))
+}
+.info, .sky {
+    --color-r: 13;
+    --color-g: 202;
+    --color-b: 240;
+    color: rgb(var(--color-r), var(--color-g), var(--color-b))
+}
+.primary, .blue {
+    --color-r: 13;
+    --color-g: 110;
+    --color-b: 253;
+    color: rgb(var(--color-r), var(--color-g), var(--color-b))
+}
+.dark {
+    --color-r: 33;
+    --color-g: 37;
+    --color-b: 41;
+    color: rgb(var(--color-r), var(--color-g), var(--color-b))
+}
+.warning, .yellow {
+    --color-r: 255;
+    --color-g: 193;
+    --color-b: 7;
+    color: rgb(var(--color-r), var(--color-g), var(--color-b))
+}
+.secondary, .gray {
+    --color-r: 108;
+    --color-g: 117;
+    --color-b: 125;
+    color: rgb(var(--color-r), var(--color-g), var(--color-b))
+}
+.danger, .red {
+    --color-r: 220;
+    --color-g: 53;
+    --color-b: 69;
+    color: rgb(var(--color-r), var(--color-g), var(--color-b))
+}
+.light, .white {
+    --color-r: 248;
+    --color-g: 249;
+    --color-b: 250;
+    color: rgb(var(--color-r), var(--color-g), var(--color-b))
+}
+
+
+
+
+.bg-green, .bg-success {
+    --bg-color-r: 25;
+    --bg-color-g: 135;
+    --bg-color-b: 84;
+    --bg-color: rgb(var(--bg-color-r), var(--bg-color-g), var(--bg-color-b));
+    background-color: rgb(25, 135, 84);
+}
+.bg-info, .bg-sky {
+    --bg-color-r: 13;
+    --bg-color-g: 202;
+    --bg-color-b: 240;
+    --bg-color: rgb(var(--bg-color-r), var(--bg-color-g), var(--bg-color-b));
+    background-color: rgb(13, 202, 240);
+}
+.bg-primary, .bg-blue {
+    --bg-color-r: 13;
+    --bg-color-g: 110;
+    --bg-color-b: 253;
+    --bg-color: rgb(var(--bg-color-r), var(--bg-color-g), var(--bg-color-b));
+    background-color: rgb(13, 110, 253);
+}
+.bg-dark {
+    --bg-color-r: 33;
+    --bg-color-g: 37;
+    --bg-color-b: 41;
+    --bg-color: rgb(var(--bg-color-r), var(--bg-color-g), var(--bg-color-b));
+    background-color: rgb(33, 37, 41);
+}
+.bg-warning, .bg-yellow {
+    --bg-color-r: 255;
+    --bg-color-g: 193;
+    --bg-color-b: 7;
+    --bg-color: rgb(var(--bg-color-r), var(--bg-color-g), var(--bg-color-b));
+    background-color: rgb(255, 193, 7);
+}
+.bg-secondary, .bg-gray {
+    --bg-color-r: 108;
+    --bg-color-g: 117;
+    --bg-color-b: 125;
+    --bg-color: rgb(var(--bg-color-r), var(--bg-color-g), var(--bg-color-b));
+    background-color: rgb(108, 117, 125);
+}
+.bg-danger, .bg-red {
+    --bg-color-r: 220;
+    --bg-color-g: 53;
+    --bg-color-b: 69;
+    --bg-color: rgb(var(--bg-color-r), var(--bg-color-g), var(--bg-color-b));
+    background-color: rgb(220, 53, 69);
+}
+.bg-light, .bg-white {
+    --bg-color-r: 248;
+    --bg-color-g: 249;
+    --bg-color-b: 250;
+    --bg-color: rgb(var(--bg-color-r), var(--bg-color-g), var(--bg-color-b));
+    background-color: rgb(248, 249, 250);
+}

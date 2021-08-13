@@ -1,1 +1,1 @@
-import '/home/darwin/Code/frontend/onlyjsx/demo/src/pages/index.jsx'
+import 'C:\\Users\\Darwin10\\Code\\frontend\\Next-JS-SSG-Vanilla\\src\\pages\\index.jsx'

@@ -15,7 +15,9 @@ if(fs.existsSync(path_App)) {
 } else {
     App = ({children}) => <div id="root-router">{children}</div>
 }
-
+/**
+ * trackear todos los archivos importados
+ */
 recursiveApply(PAGES_PATH, { applyToFile: (abs_file) => {
     if(abs_file !== path_App) {
         const relativePath = getRelativePath(abs_file, PAGES_PATH)
@@ -27,15 +29,16 @@ recursiveApply(PAGES_PATH, { applyToFile: (abs_file) => {
         buildSync({
             entryPoints: [tmpFile],
             bundle: true,
+            sourcemap: true,
             outfile: distResourceDir+'/script.js',
         })
 
-        import(abs_file).then(modules => {
+        return import(abs_file).then(modules => {
             const Content = modules.default
-            // const getStaticProps = modules.getStaticProps || (() => ({}));
+            const getStaticProps = modules.getStaticProps || (() => ({}));
 
-            // Promise.resolve(getStaticProps()).then(initialProps => {
-            //     App = () => <App {...initialProps} />
+            return Promise.resolve(getStaticProps()).then(initialProps => {
+                App = () => <App {...initialProps} />
 
                 const css = "/resources" + relativePath + "/script.css"
                 const js = "/resources" + relativePath + "/script.js"
@@ -43,16 +46,20 @@ recursiveApply(PAGES_PATH, { applyToFile: (abs_file) => {
                 const fetchedContent = ReactDOM.renderToString(<Content />)
                 forceWriteFile(distFetchedDir+'/index.html', fetchedContent)
                 // Page
-                const pageContent = "<!DOCTYPE html>" + ReactDOM.renderToString(<Document js={js} css={css}><App><Content /></App></Document>)
+                const pageContent = "<!DOCTYPE html>" + ReactDOM.renderToString(
+                    <Document js={js} css={css}>
+                        <App>
+                            <Content />
+                        </App>
+                    </Document>
+                )
                 if(relativePath === '/index') {
                     forceWriteFile(DIST_PATH+'/index.html', pageContent)
                 } else {
                     forceWriteFile(distPageDir+'/index.html', pageContent)
                 }
-            // })
-        })
-
-
+            }).catch(console.error)
+        }).finally(function(){console.log('FINALLY', arguments)})
     }
 }})
 
