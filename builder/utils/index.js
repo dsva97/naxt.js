@@ -1,6 +1,7 @@
 import fsExtra from "fs-extra";
 import path from "path";
 import fs from "fs";
+import os from "os";
 import { DIST_PAGES_PATH, DIST_JS_PATH, DIST_ASSETS_PATH, DIST_PATH } from "../contants";
 
 export const getRelativePath = (abs_file, _path) => {
@@ -45,12 +46,15 @@ export const forceWriteFile = (abs_file, content = "") => {
 };
 
 export const getUpdatedTmp = (abs_path) => {
-  const tmpFile = path.resolve(__dirname, "..", "_tmp.js");
+  var tmpFile = path.resolve(__dirname, "..", "_tmp.js");
+  const isWin = os.platform() === 'win32'
+  if(isWin) {
+    abs_path = abs_path.split('\\').join('\\\\')
+  }
   const content = `import '${abs_path}'`;
   fs.writeFileSync(tmpFile, content);
   return tmpFile;
 };
-
 export const deleteAllFiles = (abs_directory) => {
   fs.rmSync(abs_directory, { recursive: true });
 };

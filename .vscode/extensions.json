@@ -1,0 +1,6 @@
+{
+    "recommendations": [
+        "ritwickdey.liveserver"
+    ],
+    "liveServer.settings.root": "/dist"
+}
