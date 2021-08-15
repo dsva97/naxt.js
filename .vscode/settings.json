@@ -1,0 +1,7 @@
+{
+    "liveServer": {
+        "settings": {
+            "ChromeDebuggingAttachment": false,
+            "root": "/dist"
+    }
+}
