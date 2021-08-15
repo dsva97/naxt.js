@@ -1,3 +1,6 @@
+import './script.js'
+import './style.css'
+
 export const ContactoView = (props) => {
     return (
         <div id="contacto">

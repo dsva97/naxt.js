@@ -1,3 +1,6 @@
+import './script.js'
+import './style.css'
+
 export const CategoryView = ({ posts, ...props }) => {
     return (
         <div>

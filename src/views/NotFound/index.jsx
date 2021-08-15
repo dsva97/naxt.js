@@ -1,3 +1,6 @@
+import './script.js'
+import './style.css'
+
 export const NotFoundView = () => (
     <div>
         <h1>Lo siento, no encontramos nada para ti.</h1>

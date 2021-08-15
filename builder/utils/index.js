@@ -11,7 +11,15 @@ export const getRelativePath = (abs_file, _path) => {
   const parts = rest.split(path.sep);
   parts.pop();
   const result = parts.join('/');
-  return result + '/' + name;
+  let relativePath = result + '/' + name;
+
+  if (relativePath === '/index') {
+    relativePath = '/'
+  }
+  else if(relativePath.slice(-6) === '/index') {
+    relativePath = relativePath.slice(0, -6)
+  } 
+  return relativePath
 };
 export const recursiveApply = async (initDirectory, callback = () => {}) => {
   if (typeof callback === "object") {

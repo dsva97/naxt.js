@@ -1,4 +1,5 @@
 import './script.js'
+import './style.css'
 
 export const PostView = ({ post: { title, content }, ...props }) => {
     return (

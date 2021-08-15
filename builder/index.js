@@ -35,16 +35,6 @@ if (fs.existsSync(path_App)) {
 const final_routes = {}
 
 const generatePage = async (relativePath, initialRelativePath, modules, context = {}) => {
-  if (relativePath === '/index') {
-    relativePath = '/'
-  }
-  else if(relativePath.slice(-6) === '/index') {
-    relativePath = relativePath.slice(0, -6)
-  } 
-  else {
-    relativePath = relativePath
-  }
-
   const distPageDir = path.join(DIST_PATH, relativePath);
   const distFetchedDir = path.join(DIST_RESOURCES_PATH, relativePath);
 
@@ -56,7 +46,7 @@ const generatePage = async (relativePath, initialRelativePath, modules, context 
   const defaultProps = initialDataPage?.props || {}
 
   const pathForResource = context.params ? initialRelativePath : relativePath
-  const css = "/" + PREFIX_RESOURCE + (pathForResource === '/' ? '' : '/') + "index/script.css";
+  const css = "/" + PREFIX_RESOURCE + pathForResource + (pathForResource === '/' ? '' : '/') + "index/script.css";
   const js = "/" + PREFIX_RESOURCE + pathForResource + (pathForResource === '/' ? '' : '/')  + "index/script.js";
 
   // For fetch
@@ -74,34 +64,30 @@ const generatePage = async (relativePath, initialRelativePath, modules, context 
       </Document>
     );
     
-  var relativePathForRouter = ''
   if (relativePath === '/index') {
     forceWriteFile(DIST_PATH + "/index.html", pageContent);
-    relativePathForRouter = '/'
   }
   else if(relativePath.slice(-6) === '/index') {
     const _distPageDir = path.join(DIST_PATH, relativePath.slice(0, -6));
     forceWriteFile(_distPageDir + "/index.html", pageContent);
-    relativePathForRouter = relativePath.slice(0, -6)
   } 
   else {
     forceWriteFile(distPageDir + "/index.html", pageContent);
-    relativePathForRouter = relativePath
   }
 
-  final_routes[relativePathForRouter] = context
+  final_routes[relativePath] = context
   if(context?.params) {
     final_routes[initialRelativePath] = {
       resourcesFetched: false
     }
-    final_routes[relativePathForRouter].dynamicPath = initialRelativePath
+    final_routes[relativePath].dynamicPath = initialRelativePath
   }
 }
 
 recursiveApply(PAGES_PATH, {
   applyToFile: async (abs_file) => {
     if (abs_file !== path_App) {
-      const relativePath = getRelativePath(abs_file, PAGES_PATH);
+      let relativePath = getRelativePath(abs_file, PAGES_PATH);
       // const distResourceDir = path.join(DIST_JS_PATH, relativePath);
       const distResourceDir = path.join(DIST_RESOURCES_PATH, relativePath + '/index');
       const tmpFile = getUpdatedTmp(abs_file);
