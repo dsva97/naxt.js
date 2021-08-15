@@ -1,0 +1,89 @@
+*[class*="btn-"] {
+    --color: var(--color-normal);
+    cursor: pointer;
+    padding: .5em;
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--color);
+    transition: all .3s;
+    border-radius: 0;
+}
+a {
+    color: var(--geist-success);
+    transition: color .3s;
+}
+a:hover {
+    color: var(--geist-success-light);
+}
+a:active {
+    color: var(--geist-success-dark);
+}
+/*
+- size: md / lg
+- type (distribution-color): fill / outline
+- rounded: curve / rounded
+- color: color[] // no necesario, pero ya está el soporte mediante .[color]
+- shadow: shadow[] // falta
+*/
+
+/*#region rounded */
+.btn-curve {
+    border-radius: 1em;
+}
+.btn-rounded {
+    border-radius: .5em;
+}
+/*#endregion rounded */
+/*#region SIZE */
+.btn-size-md {
+    padding: 0.25rem 1rem;
+    margin: 0px;
+    font-weight: 500;
+}
+.btn-size-lg {
+    margin: 0px;
+    padding: 0px 3.5rem;
+    height: 2.81rem;
+    line-height: 2.8rem;
+    border-radius: 7px;
+}
+/*#endregion SIZE */
+
+/*#region TYPE */
+.btn-type-fill {
+    background: var(--color);
+    color: white;
+}
+.btn-type-fill:hover {
+    --color: var(--color-light);
+}
+.btn-type-fill:active {
+    --color: var(--color-dark);
+}
+.btn-type-outline {
+    background: var(--color);
+    color: white;
+}
+.btn-type-outline:hover {
+    background: white;
+    color: var(--color);
+}
+/*#endregion TYPE */
+
+.btn-md {
+    background-color: rgba(0, 118, 255, 0.9);
+    border: 1px solid rgba(0, 118, 255, 0.9);
+    color: rgb(255, 255, 255);
+    padding: 0.25rem 1rem;
+    margin: 0px;
+    font-weight: 500;
+}
+.btn-lg {    
+    margin: 0px;
+    padding: 0px 3.5rem;
+    height: 2.81rem;
+    line-height: 2.8rem;
+    border-radius: 7px;
+    box-shadow: rgb(0 118 255 / 39%) 0px 4px 14px 0px;
+    color: white;
+}

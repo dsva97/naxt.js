@@ -1,2 +1,3 @@
-export { default } from '../views/NotFound'
-// export * from '../views/NotFound'
+import { NotFoundView as NotFoundPage } from '../views/NotFound'
+
+export default NotFoundPage

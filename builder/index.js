@@ -1,72 +1,156 @@
-import fs from 'fs'
-import path from 'path'
-import { buildSync } from 'esbuild'
-import ReactDOM from 'react-dom/server'
-import { recursiveApply, getRelativePath, forceWriteFile, getUpdatedTmp, cleanDirectories } from './utils'
-import Document from './components/Document'
-import { PAGES_PATH, DIST_JS_PATH, DIST_PAGES_PATH, DIST_PATH, SRC_PATH } from './contants'
+import fs from "fs";
+import path from "path";
+import { buildSync } from "esbuild";
+import ReactDOM from "react-dom/server";
+import {
+  recursiveApply,
+  getRelativePath,
+  forceWriteFile,
+  getUpdatedTmp,
+  cleanDirectories,
+  handleFileParams,
+} from "./utils";
+import Document from "./components/Document";
+import {
+  PAGES_PATH,
+  DIST_JS_PATH,
+  DIST_PAGES_PATH,
+  PREFIX_RESOURCE,
+  DIST_PATH,
+  SRC_PATH,
+  DIST_RESOURCES_PATH,
+} from "./contants";
 
-cleanDirectories()
 
-const path_App = path.join(PAGES_PATH, '_app.jsx')
+cleanDirectories();
+
+const path_App = path.join(PAGES_PATH, "_app.jsx");
 let App;
-if(fs.existsSync(path_App)) {
-    import(path_App).then(modules => App = modules.default)
+if (fs.existsSync(path_App)) {
+  import(path_App).then((modules) => (App = modules.default));
 } else {
-    App = ({children}) => <div id="root-router">{children}</div>
+  App = ({ children }) => <div id="root-router">{children}</div>;
 }
 
-recursiveApply(PAGES_PATH, { applyToFile: (abs_file) => {
-    if(abs_file !== path_App) {
-        const relativePath = getRelativePath(abs_file, PAGES_PATH)
-        const distResourceDir = path.join(DIST_JS_PATH, relativePath)
-        const distFetchedDir = path.join(DIST_PAGES_PATH, relativePath)
-        const distPageDir = path.join(DIST_PATH, relativePath)
-        const tmpFile = getUpdatedTmp(abs_file)
+const final_routes = {}
 
-        buildSync({
-            entryPoints: [tmpFile],
-            bundle: true,
-            outfile: distResourceDir+'/script.js',
-        })
+const generatePage = async (relativePath, initialRelativePath, modules, context = {}) => {
+  if (relativePath === '/index') {
+    relativePath = '/'
+  }
+  else if(relativePath.slice(-6) === '/index') {
+    relativePath = relativePath.slice(0, -6)
+  } 
+  else {
+    relativePath = relativePath
+  }
 
-        import(abs_file).then(modules => {
-            const Content = modules.default
-            // const getStaticProps = modules.getStaticProps || (() => ({}));
+  const distPageDir = path.join(DIST_PATH, relativePath);
+  const distFetchedDir = path.join(DIST_RESOURCES_PATH, relativePath);
 
-            // Promise.resolve(getStaticProps()).then(initialProps => {
-            //     App = () => <App {...initialProps} />
+  const getStaticProps = modules.getStaticProps || (() => ({}));
+  const Content = modules.default;
+  const Head = modules.Head || (() => <></>)
+  
+  const initialDataPage = await getStaticProps(context) || {}
+  const defaultProps = initialDataPage?.props || {}
 
-                const css = "/resources" + relativePath + "/script.css"
-                const js = "/resources" + relativePath + "/script.js"
-                // For fetch
-                const fetchedContent = ReactDOM.renderToString(<Content />)
-                forceWriteFile(distFetchedDir+'/index.html', fetchedContent)
-                // Page
-                const pageContent = "<!DOCTYPE html>" + ReactDOM.renderToString(<Document js={js} css={css}><App><Content /></App></Document>)
-                if(relativePath === '/index') {
-                    forceWriteFile(DIST_PATH+'/index.html', pageContent)
-                } else {
-                    forceWriteFile(distPageDir+'/index.html', pageContent)
-                }
-            // })
-        })
+  const pathForResource = context.params ? initialRelativePath : relativePath
+  const css = "/" + PREFIX_RESOURCE + (pathForResource === '/' ? '' : '/') + "index/script.css";
+  const js = "/" + PREFIX_RESOURCE + pathForResource + (pathForResource === '/' ? '' : '/')  + "index/script.js";
 
+  // For fetch
+  const fetchedContent = ReactDOM.renderToString(<Content {...defaultProps} />);
+  forceWriteFile(distFetchedDir + "/index/index.html", fetchedContent);
 
+  // Page
+  const pageContent =
+    "<!DOCTYPE html>" +
+    ReactDOM.renderToString(
+      <Document js={js} css={css} head={<Head  {...defaultProps} />}>
+        <App>
+          <Content {...defaultProps} />
+        </App>
+      </Document>
+    );
+    
+  var relativePathForRouter = ''
+  if (relativePath === '/index') {
+    forceWriteFile(DIST_PATH + "/index.html", pageContent);
+    relativePathForRouter = '/'
+  }
+  else if(relativePath.slice(-6) === '/index') {
+    const _distPageDir = path.join(DIST_PATH, relativePath.slice(0, -6));
+    forceWriteFile(_distPageDir + "/index.html", pageContent);
+    relativePathForRouter = relativePath.slice(0, -6)
+  } 
+  else {
+    forceWriteFile(distPageDir + "/index.html", pageContent);
+    relativePathForRouter = relativePath
+  }
+
+  final_routes[relativePathForRouter] = context
+  if(context?.params) {
+    final_routes[initialRelativePath] = {
+      resourcesFetched: false
     }
-}})
-
-const cssGlobal = path.join(SRC_PATH, 'css', 'index.css')
-if(fs.existsSync(cssGlobal)) {
-    buildSync({
-        entryPoints: [cssGlobal],
-        bundle: true,
-        outfile: DIST_PATH+'/assets/css/global.css',
-    })
+    final_routes[relativePathForRouter].dynamicPath = initialRelativePath
+  }
 }
 
+recursiveApply(PAGES_PATH, {
+  applyToFile: async (abs_file) => {
+    if (abs_file !== path_App) {
+      const relativePath = getRelativePath(abs_file, PAGES_PATH);
+      // const distResourceDir = path.join(DIST_JS_PATH, relativePath);
+      const distResourceDir = path.join(DIST_RESOURCES_PATH, relativePath + '/index');
+      const tmpFile = getUpdatedTmp(abs_file);
 
-fs.copyFileSync(
-    path.resolve(__dirname, 'router', 'client-router.js'),
-    path.resolve(DIST_PATH, 'client-router.js')
-)
+      buildSync({
+        entryPoints: [tmpFile],
+        bundle: true,
+        outfile: distResourceDir + "/script.js",
+      });
+
+      const modules = await import(abs_file)
+      const getStaticPaths = modules.getStaticPaths || (() => ({ paths: [] }));
+      const [baseRelativePath, baseParams] = handleFileParams(relativePath)
+      
+      if(baseParams.length > 0) {
+        const { paths } = await getStaticPaths() || { paths: [] }
+        const realPaths = paths.map(({params}) => {
+          const dynamicParamsPath = baseParams.map(_baseParam => {
+            return '/'+params[_baseParam]
+          }).join('')
+          const realPath = baseRelativePath + dynamicParamsPath
+          return [realPath, params]
+        })
+        const results = realPaths.map(async ([realRelativePath, params]) => {
+          const context = { params }
+          return generatePage(realRelativePath, relativePath, modules, context)
+        })
+
+        await Promise.all(results)
+      } else {
+        await generatePage(relativePath, relativePath, modules)
+      }
+    }
+  }
+}).then(() => {
+  const cssGlobal = path.join(SRC_PATH, "css", "index.css");
+  if (fs.existsSync(cssGlobal)) {
+    buildSync({
+      entryPoints: [cssGlobal],
+      bundle: true,
+      outfile: DIST_PATH + "/assets/css/global.css",
+    });
+  }
+  
+  fs.copyFileSync(
+    path.resolve(__dirname, "router", "client-router.js"),
+    path.resolve(DIST_PATH, "client-router.js")
+  );
+  
+  forceWriteFile(path.join(DIST_PATH, 'routes.json'), JSON.stringify(final_routes))
+  console.log('Ready')
+})

@@ -1,0 +1,21 @@
+{
+    "code": {
+        "hello-world": {
+            "title": "Hola mundo!",
+            "content": "<h1>Hola mundo!</h1>",
+            "url": "/blog/code/hello-world"
+        },
+        "primer-commit": {
+            "title": "Primer commit",
+            "content": "<h1>Este es mi primer commit!</h1>",
+            "url": "/blog/code/primer-commit"
+        }
+    },
+    "vida": {
+        "vive-la-vida-y-no-dejes-que-la-vida-te-viva": {
+            "title": "Vive la vida y no dejes que la vida te viva",
+            "content": "<h1>Vive la vida y no dejes que la vida te viva</h1>",
+            "url": "/blog/vida/vive-la-vida-y-no-dejes-que-la-vida-te-viva"
+        }
+    }
+}

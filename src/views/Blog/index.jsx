@@ -1,20 +1,12 @@
-import './script.js'
-import './style.css'
-
-const BlogView = (props) => {
+export const BlogView = ({ categories }) => {
     return (
-        <div id="blog">
-            <h1> blog! </h1>
+        <div>
+            Blog
+            <ul>
+                { categories.map(cat =><li key={cat}>
+                    <a href={'/blog/'+cat} is="a-link">{cat}</a>
+                </li>) }
+            </ul>
         </div>
     )
 }
-
-export const getStaticProps = () => {
-    return {
-        data: {
-            title: "Blog"
-        }
-    }
-}
-
-export default BlogView

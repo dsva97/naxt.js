@@ -1,1 +1,1 @@
-import 'C:\\Users\\Darwin10\\Code\\owner\\frontend\\Next-JS-SSG-Vanilla\\src\\pages\\index.jsx'
+import 'C:\\Users\\Darwin10\\Code\\owner\\frontend\\Next-JS-SSG-Vanilla\\src\\pages\\servicios.jsx'

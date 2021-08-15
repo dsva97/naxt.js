@@ -1,12 +1,7 @@
-import './script'
-import './style.css'
+import { Presentation } from './Presentation'
 
-const IndexView = () => {
-    return (
-        <div id="home">
-            <h1>Hola mundo!</h1>
-        </div>
-    )
-}
-
-export default IndexView
+export const IndexView = () => 
+<div id="IndexView">
+    <Presentation />
+    
+</div>

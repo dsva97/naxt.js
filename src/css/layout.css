@@ -1,0 +1,23 @@
+#container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+#container>main {
+    flex-grow: 1;
+}
+
+#header {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--padding);
+}
+#header ul {
+    display: flex;
+}
+#header ul li {
+    list-style: none;
+}
+#header ul li:not(:first-child) {
+    margin-left: 1em;
+}

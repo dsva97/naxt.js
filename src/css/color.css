@@ -1,0 +1,30 @@
+.blue {
+    --color-lighter: #d3e5ff;
+    --color-light: #3291ff;
+    --color-normal: #0070f3;
+    --color-dark: #0761d1;
+}
+.red {
+    --color-lighter: #f7d4d6;
+    --color-light: #ff1a1a;
+    --color-normal: #ee0000;
+    --color-dark: #c50000;
+}
+.yellow {
+    --color-lighter: #ffefcf;
+    --color-light: #f7b955;
+    --color-normal: #f5a623;
+    --color-dark: #ab570a;
+}
+.violet {
+    --color-lighter: #e3d7fc;
+    --color-light: #8a63d2;
+    --color-normal: #7928ca;
+    --color-dark: #4c2889;
+}
+.cyan {
+    --color-lighter: #aaffec;
+    --color-light: #79ffe1;
+    --color-normal: #50e3c2;
+    --color-dark: #29bc9b;
+}

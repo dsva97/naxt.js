@@ -3,39 +3,40 @@ import path from "path";
 import fs from "fs";
 import os from "os";
 import { DIST_PAGES_PATH, DIST_JS_PATH, DIST_ASSETS_PATH, DIST_PATH } from "../contants";
+export * from './params'
 
 export const getRelativePath = (abs_file, _path) => {
   const name = path.parse(abs_file).name;
   const rest = abs_file.split(_path)[1];
-  const parts = rest.split("/");
+  const parts = rest.split(path.sep);
   parts.pop();
-  const result = parts.join("/");
-  return result + "/" + name;
+  const result = parts.join('/');
+  return result + '/' + name;
 };
-export const recursiveApply = (initDirectory, callback = () => {}) => {
+export const recursiveApply = async (initDirectory, callback = () => {}) => {
   if (typeof callback === "object") {
-    var { applyToFile = () => {}, applyToDir = () => {} } = callback;
+    var { applyToFile = async () => {}, applyToDir = async () => {} } = callback;
   } else {
     // is a function
     var applyToFile = callback,
       applyToDir = callback;
   }
-  const recursive = (directory) =>
-    fs.readdir(directory, (err, files) => {
-      if (err) throw err;
-      for (const file of files) {
-        const abs_file = path.resolve(directory, file);
-        const isDirectory = fs.statSync(abs_file).isDirectory();
-        if (isDirectory) {
-          applyToDir(abs_file);
-          recursive(abs_file);
-        } else {
-          applyToFile(abs_file);
-        }
-      }
-    });
 
-  recursive(initDirectory);
+  const recursive = async (directory) => {
+    const files = fs.readdirSync(directory)
+    for (const file of files) {
+      const abs_file = path.resolve(directory, file);
+      const isDirectory = fs.statSync(abs_file).isDirectory();
+      if (isDirectory) {
+        await applyToDir(abs_file);
+        await recursive(abs_file);
+      } else {
+        await applyToFile(abs_file);
+      }
+    }
+  }
+
+  await recursive(initDirectory);
 };
 export const forceWriteFile = (abs_file, content = "") => {
   const directory = path.dirname(abs_file);
