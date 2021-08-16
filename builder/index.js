@@ -124,6 +124,7 @@ recursiveApply(PAGES_PATH, {
   }
 }).then(() => {
   const cssGlobal = path.join(SRC_PATH, "css", "index.css");
+  const jsGlobal = path.join(SRC_PATH, "js", "index.js");
   if (fs.existsSync(cssGlobal)) {
     buildSync({
       entryPoints: [cssGlobal],
@@ -131,12 +132,21 @@ recursiveApply(PAGES_PATH, {
       outfile: DIST_PATH + "/assets/css/global.css",
     });
   }
-  
-  fs.copyFileSync(
-    path.resolve(__dirname, "router", "client-router.js"),
-    path.resolve(DIST_PATH, "client-router.js")
-  );
-  
-  forceWriteFile(path.join(DIST_PATH, 'routes.json'), JSON.stringify(final_routes))
+  if (fs.existsSync(jsGlobal)) {
+    buildSync({
+      entryPoints: [jsGlobal],
+      bundle: true,
+      outfile: DIST_PATH + "/assets/js/global.js",
+    });
+  }
+
+  const contentRouter = fs.readFileSync(
+    path.resolve(__dirname, "router", "client-router.js")
+  )
+  fs.writeFileSync(
+    path.resolve(DIST_PATH, "client-router.js"),
+    "const __ROUTES__ = (" + JSON.stringify(final_routes) + ");\n"
+    + contentRouter
+  )
   console.log('Ready')
 })

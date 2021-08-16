@@ -1,0 +1,1 @@
+console.log('Aquí está el código global')
