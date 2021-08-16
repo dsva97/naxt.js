@@ -1,8 +1,10 @@
-# <div style="text-align: center;">Naxt.js</div>
+# <p align="center">Naxt.js</p>
 
 ## Generate SSG VANILLA with JSX like Next.js
 
 Execute `npm start` or `yarn start` and serve (with http-server, nginx, etc.) the "/dist" directory and enjoy!
+
+---
 
 ### How to use this SSG Boilerplate project inspired on Next JS?
 
